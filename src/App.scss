@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  background-color: rgba(255, 255, 255, 0.671);
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+}
+
+main {
+  max-width: 80%;
+  margin: auto;
+}
+
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.movie {
+  width: calc(20% - (20px / 5 * 4));
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 15px;
+}
+
+.movie__title {
+  margin-bottom: 1em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.movie__img {
+  width: 100%;
+  height: 150px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.genres__item {
+  margin: 0 auto;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.page-item {
+  margin: 0 15px;
+}
+
+.page-link {
+  border: none;
+  border-radius: 5px;
+}
+
+.genre-container {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.button-category {
+  margin: 0px 5px;
+  padding: 8px 10px;
+  border-radius: 15px;
+  border: 1px solid white;
+  color: #818181;
+  background-color: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.button-category:hover {
+  border: 1px solid #0d6efd;
+}
+
+.btn-active {
+  margin: 0px 5px;
+  padding: 8px 10px;
+  border-radius: 15px;
+  border: none;
+  background-color: #0d6efd;
+  font-weight: bold;
+  color: white;
+  border: 1px solid white;
+  text-transform: capitalize;
+}
+
+.carousel-item {
+  height: 35vh;
+}
+
+/* .footer-content {
+    width: 35vw;
+    margin-right: 200px;
+    margin-left: 50px;
+  } */
+
+.main-content {
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .movie {
+    width: calc(50% - (20px / 2 * 1));
+  }
+
+  .footer-content {
+    width: 80vw !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* @media screen and (max-width: 1000px) {
+    .movies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    .movie {
+      width: calc(33.3% - (20px / 4 * 3));
+    }
+  
+    .footer-content {
+      width: 80vw !important;
+      margin: 0 auto !important;
+    }
+  } */
