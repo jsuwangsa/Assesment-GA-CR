@@ -71,6 +71,23 @@
   text-transform: capitalize;
 }
 
+.main-content {
+  margin-top: 2rem;
+}
+
+.category {
+  margin: 1em 0;
+}
+
+.page-item {
+  margin: 0 15px;
+}
+
+.page-link {
+  border: none;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 768px) {
   .games {
     display: flex;

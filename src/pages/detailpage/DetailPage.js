@@ -20,7 +20,6 @@ const DetailPage = () => {
     const response = await axios
       .get(`${BASE_URL}games/${id}?key=${key}`)
       .catch((error) => console.log(error));
-    // console.log(response);
     if (response.data) {
       setGameDetail(response.data);
       setLoading(false);
@@ -31,7 +30,6 @@ const DetailPage = () => {
     getGameDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(gameDetail);
 
   return (
     <>
@@ -51,14 +49,16 @@ const DetailPage = () => {
               <div className="genres">
                 <h6>Genres:</h6>
                 {gameDetail.genres
-                  ? gameDetail.genres.map((genre) => <p>{genre.name}</p>)
+                  ? gameDetail.genres.map((genre) => (
+                      <p key={genre.id}>{genre.name}</p>
+                    ))
                   : null}
               </div>
               <div className="developers">
                 <h6>Developers:</h6>
                 {gameDetail.developers
                   ? gameDetail.developers.map((developer) => (
-                      <p>{developer.name}</p>
+                      <p key={developer.id}>{developer.name}</p>
                     ))
                   : null}
               </div>
@@ -85,7 +85,7 @@ const DetailPage = () => {
                 <h6>Platforms:</h6>
                 {gameDetail.platforms
                   ? gameDetail.platforms.map((platform) => (
-                      <p>{platform.platform.name}</p>
+                      <p key={platform.id}>{platform.platform.name}</p>
                     ))
                   : null}
               </div>

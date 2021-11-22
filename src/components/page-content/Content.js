@@ -4,16 +4,23 @@ import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import ReactPaginate from "react-paginate";
 
 function Content() {
-  const [config, setConfig] = useState({
-    page: 1,
-    page_size: 20,
-    data: {},
-  });
+  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [games, setGames] = useState([]);
-  const [genres, setGenres] = useState([]);
+  const [genre, setGenre] = useState("");
+  const genres = [
+    "action",
+    "arcade",
+    "strategy",
+    "shooter",
+    "adventure",
+    "puzzle",
+    "racing",
+    "sports",
+  ];
 
   const BASE_URL = "https://api.rawg.io/api/";
   const key = "5e59f9523b404f11a5dd5cc736f182db";
@@ -22,34 +29,21 @@ function Content() {
     setLoading(true);
     const response = await axios
       .get(
-        `${BASE_URL}games?key=${key}&?page=${config.page}&?page_size=${config.page_size}`
+        `${BASE_URL}games?%3Fpage=1&%3Fpage_size=20${
+          genre !== "" ? `&genres=${genre}` : null
+        }&key=${key}&page=${page === 0 ? "1" : `${page}`}`
       )
       .catch((error) => console.log(error));
-    if (response.data) {
-      console.log(response.data, "games");
-      setConfig({ ...config, data: response.data });
-      setGames(response.data.results);
+    if (response?.data) {
+      setGames(response.data);
       setLoading(false);
-      // console.log(config);
-    }
-  };
-
-  const getGenre = async () => {
-    const response = await axios
-      .get(`${BASE_URL}genres?key=${key}`)
-      .catch((error) => console.log(error));
-    if (response.data) {
-      console.log(response.data, "genres");
-      setGenres(response.data.results);
-      console.log(genres);
     }
   };
 
   useEffect(() => {
     getGames();
-    getGenre();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [genre, page]);
 
   const renderGameCard = (game) => {
     return (
@@ -60,7 +54,7 @@ function Content() {
             alt={game.name}
             className="game__img"
           />
-          <h2 className="game__title">{game.name}</h2>
+          <h5 className="game__title">{game.name}</h5>
           <div className="details">
             <div className="genres">
               <h6>Genres:</h6>
@@ -79,25 +73,68 @@ function Content() {
     );
   };
 
-  // const changePage = ({ selected }) => {
-  //   console.log(selected);
-  //   let selectedPage = selected + 1;
-  //   console.log(selectedPage);
-  //   setConfig({ ...config, page: selectedPage });
-  //   console.log(config.page);
-  // };
+  const changeGenre = (genre) => {
+    setGenre(genre);
+  };
+
+  const changePage = ({ selected }) => {
+    setPage(selected + 1);
+  };
 
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : (
+      {loading === true ? <Loading /> : null}
+      {games?.results ? (
         <Container className="main-content">
-          <div className="games">
-            {games.length && games.map((game) => renderGameCard(game))}
+          <div className="category">
+            <h2 className="category-title">Browse by genre</h2>
+            <div className="genre-container">
+              <button
+                onClick={() => changeGenre("")}
+                className={`button-category ${
+                  "" === genre ? "btn-active" : null
+                }`}
+              >
+                All
+              </button>
+              {genres.map((gen) => (
+                <button
+                  key={Math.ceil(Math.random() * 1000 + 1)}
+                  onClick={() => changeGenre(gen)}
+                  className={`button-category ${
+                    gen === genre ? "btn-active" : null
+                  }`}
+                >
+                  {gen}
+                </button>
+              ))}
+            </div>
           </div>
+          <div className="games">
+            {games?.results &&
+              games?.results.map((game) => renderGameCard(game))}
+          </div>
+          <ReactPaginate
+            pageCount={10}
+            nextLabel="Next >>"
+            previousLabel="<< Prev"
+            onPageChange={changePage}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousLinkClassName={"page-link"}
+            nextLinkClassName={"page-link"}
+            nextClassName={`page-item ${
+              games.next === null ? "disabled" : null
+            }`}
+            previousClassName={`page-item ${
+              games.previous === null ? "disabled" : null
+            }`}
+            disabledClassName="pagination-disabled"
+            activeClassName="active"
+          />
         </Container>
-      )}
+      ) : null}
     </>
   );
 }
