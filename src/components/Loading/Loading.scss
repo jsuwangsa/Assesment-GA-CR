@@ -1,0 +1,11 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(128, 128, 128, 0.479);
+  .spinner-border {
+    width: 5rem;
+    height: 5rem;
+  }
+}

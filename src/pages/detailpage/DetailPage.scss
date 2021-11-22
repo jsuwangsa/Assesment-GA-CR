@@ -1,0 +1,24 @@
+.title {
+  margin: 1rem 0;
+}
+
+.game-info {
+  margin-top: 3em;
+  padding: 1em;
+  background-color: beige;
+
+  p {
+    margin: 0;
+  }
+  h6 {
+    margin: 1em 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .game-info {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+  }
+}

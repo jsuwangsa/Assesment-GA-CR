@@ -1,11 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
-import Mainpage from "./pages/mainpage/Mainpage";
+import Routers from "./Routers/Routers";
 
 function App() {
   return (
     <div>
-      <Mainpage />
+      <Routers />
     </div>
   );
 }
